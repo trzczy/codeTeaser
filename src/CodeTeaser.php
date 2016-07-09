@@ -7,11 +7,10 @@ class CodeTeaser
 
     function __construct($body)
     {
-        $this->body = $body; //$text
-
+        $this->body = $body;
     }
 
-    function build($targetLength = 9)
+    function build($targetLength = 50)
     {
         $this->body = $this->cleanArticle($this->body);
         $this->body = $this->replaceBracketsByParenthesis($this->body);
@@ -63,8 +62,8 @@ class CodeTeaser
 
     function cleanArticle($text)
     {
-//        $text = preg_replace('/[\cK\f\r\x85]+/us', '', $text);
-        $text = preg_replace('/[\v]+/us', '', $text);
+        $text = preg_replace('/[\cK\f\r\x85]+/us', '', $text);
+//        $text = preg_replace('/[\v]+/us', '', $text);
         $text = preg_replace('/\h+/us', ' ', $text);
         return $text;
     }
@@ -78,14 +77,46 @@ class CodeTeaser
         );
     }
 
+    function addSpaceBetweenTags($text)
+    {
+        foreach (['p', 'code', 'blockquote'] as $tag) {
+            $text = preg_replace_callback('/(<\/' . $tag . '>)(\S)/',
+                function ($matches) {
+                    return ($matches[1] . ' ' . $matches[2]);
+                }
+                , $text);
+        }
+        return $text;
+    }
+
     function stripTagsBetweenCode($text)
     {
         $r = '/((^|<\/code>).*?(<code[^>]*?>|$))/us';
         $text = preg_replace_callback($r, function ($a) {
             $betweenCode = $a[0];
-            $betweenCode = mb_ereg_replace('/<[^<>]*?>/s', '', $betweenCode);
+
+            /*
+             *            $betweenCode = mb_ereg_replace('/<[^<>]*?>/s', '', $betweenCode);
+             */
+
+
+            $betweenCode = $this->addSpaceBetweenTags($betweenCode);
+
+
 
             $betweenCode = strip_tags($betweenCode);
+
+            //Debug info
+            ?><?= "***** DEBUG **** " . __LINE__ . " **\n" . str_replace($_SERVER['DOCUMENT_ROOT'], '', __FILE__) . "\n"?><?php
+            //May repeat
+            var_dump($betweenCode);
+            echo "\n";
+            //may repeat end
+            echo "***/DEBUG ***";
+            echo "\n\n";
+            ?><?php
+            //Debug info end
+
 
             return $betweenCode;
         }, $text);
@@ -101,9 +132,8 @@ class CodeTeaser
         $dom->documentElement->lastChild->lastChild->appendChild($dots);
         $innerHTML = "";
         foreach ($dom->getElementsByTagName('body')->item(0)->childNodes as $child) {
-            $innerHTML .= $dom->saveHTML($child);
+            $innerHTML .= preg_replace('/\n+$/us', ' ', $dom->saveHTML($child));
         }
         return $innerHTML;
     }
 }
-
