@@ -10,6 +10,7 @@ class CodeTeaserTest extends \PHPUnit_Framework_TestCase
         include 'data.php';
         include 'data2.php';
         include 'data3.php';
+        include 'data4.php';
         return $data;
     }
 

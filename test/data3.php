@@ -52,12 +52,3 @@ HAH;
 
 array_push($data, [$length, $content, $expected]);
 // dataProvider item end #4
-
-
-/*
-Ogłosił nam, że go.Brał dom żałobę, ale widzę.Rejtan, gdyby ożył? Wróciłby do
-77
-****************
-
-<p><a href="http://google/abc/?hej=ho&ile=21">Ogłosił <strong>nam</strong></a>, że go.</p><p>Brał dom żałobę, ale widzę.</p><p>Rejtan, gdyby ożył? Wróciłby do...</p>
- */
