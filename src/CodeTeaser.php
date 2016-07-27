@@ -3,7 +3,7 @@
  * This file contains a class with methods of the package.
  *
  * @package    CodeTeaser
- * @license    http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @license    https://opensource.org/licenses/MIT  The MIT License (MIT)
  * @author     trzczy <trzczy@gmail.com>
  */
 
