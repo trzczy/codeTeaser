@@ -6,3 +6,10 @@ machine:
 test:
   override:
     - vendor/bin/phpunit
+dependencies:
+  pre:
+    - sed -i 's/^;//' /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
+  override:
+    - mkdir -p build/logs
+    - composer install --dev --no-interaction
+    - sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini
