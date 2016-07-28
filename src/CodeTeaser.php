@@ -30,17 +30,17 @@ class CodeTeaser
     function build($targetLength = 50, $content)
     {
         $content = $this->replaceBracketsByParenthesis($content);
-        $n = 3;
+        $loop = 3;
         $wordN = 0;
         $lengths = [0, 0];
-        $countedLength = mb_strlen($this->prepareCodeForCharCounting(mb_substr($content, 0, $n)));
+        $countedLength = mb_strlen($this->prepareCodeForCharCounting(mb_substr($content, 0, $loop)));
         array_push($lengths, $countedLength);
         array_shift($lengths);
 
         while (
             $countedLength <= $targetLength
             and
-            mb_strlen($content) >= $n
+            mb_strlen($content) >= $loop
         ) {
             array_push($lengths, $countedLength);
             array_shift($lengths);
@@ -50,17 +50,17 @@ class CodeTeaser
             $resultArr1 = [];
             $resultArr7 = [];
 
-            $oneCharLongerTestedCutText = mb_substr($content, 0, $n + 1);
-            $sevenCharLongerTestedCutText = mb_substr($content, 0, $n + 7);
+            $oneCharLongerText = mb_substr($content, 0, $loop + 1);
+            $sevenCharLongerText = mb_substr($content, 0, $loop + 7);
 
-            preg_match('/\w[^\w]\z/u', $oneCharLongerTestedCutText, $resultArr1);
-            preg_match('/\<\/code\>\z/u', $sevenCharLongerTestedCutText, $resultArr7);
+            preg_match('/\w[^\w]\z/u', $oneCharLongerText, $resultArr1);
+            preg_match('/\<\/code\>\z/u', $sevenCharLongerText, $resultArr7);
             if (
                 !empty($resultArr7)
                 AND
                 $resultArr7[0]
             ) {
-                $n = $n + 7;
+                $loop = $loop + 7;
             } elseif (
                 !empty($resultArr1)
                 AND
@@ -68,16 +68,16 @@ class CodeTeaser
                 AND
                 $lengthChange
             ) {
-                $wordN = $n;
+                $wordN = $loop;
             }
-            $n++;
-            $countedLength = mb_strlen($this->prepareCodeForCharCounting($oneCharLongerTestedCutText));// 2
+            $loop++;
+            $countedLength = mb_strlen($this->prepareCodeForCharCounting($oneCharLongerText));// 2
         }
-        $r = '/<code(?:(?:\W[^<>]*?>)|>)(.*?)(?:<\/code>|$)/su';//!
+        $regexPattern = '/<code(?:(?:\W[^<>]*?>)|>)(.*?)(?:<\/code>|$)/su';//!
         $cutText = preg_replace_callback(
-            $r,
-            function ($c) {
-                return str_replace($c[1], htmlspecialchars($c[1]), $c[0]);
+            $regexPattern,
+            function ($searches) {
+                return str_replace($searches[1], htmlspecialchars($searches[1]), $searches[0]);
             },
             mb_substr($content, 0, $wordN)
         );
@@ -114,16 +114,16 @@ class CodeTeaser
      */
     function prepareCodeForCharCounting($string)
     {
-        $r = '/(?:^|<\/code>).*?(?:<code(?:(?:\W[^<>]*?>)|>)|$)/us';
+        $regexPattern = '/(?:^|<\/code>).*?(?:<code(?:(?:\W[^<>]*?>)|>)|$)/us';
         $string = preg_replace_callback(
-            $r,
-            function ($a) {
-                /** @var string $stringExceptCodeSnippets A string divided by code snippets */
-                $stringExceptCodeSnippets = $a[0];
-                $stringExceptCodeSnippets = $this->cleanArticle($stringExceptCodeSnippets);
-                $stringExceptCodeSnippets = $this->clearBetweenMainTags($stringExceptCodeSnippets);
-                $stringExceptCodeSnippets = strip_tags($stringExceptCodeSnippets);
-                return $stringExceptCodeSnippets;
+            $regexPattern,
+            function ($searches) {
+                /** @var string $stringExceptCode A string divided by code snippets */
+                $stringExceptCode = $searches[0];
+                $stringExceptCode = $this->cleanArticle($stringExceptCode);
+                $stringExceptCode = $this->clearBetweenMainTags($stringExceptCode);
+                $stringExceptCode = strip_tags($stringExceptCode);
+                return $stringExceptCode;
             }, $string
         );
         $string = preg_replace('/\W$/u', '', $string);
@@ -170,13 +170,13 @@ class CodeTeaser
      */
     function encodeAmpersandEverywhereButCodeSnippets($string)
     {
-        $r = '/(?:^|<\/code>).*?(?:<code(?:(?:\W[^<>]*?>)|>)|$)/us';
+        $regexPattern = '/(?:^|<\/code>).*?(?:<code(?:(?:\W[^<>]*?>)|>)|$)/us';
         $string = preg_replace_callback(
-            $r,
-            function ($a) {
-                $stringExceptCodeSnippets = $a[0];
-                $stringExceptCodeSnippets = str_replace('&', '&amp;', $stringExceptCodeSnippets);
-                return $stringExceptCodeSnippets;
+            $regexPattern,
+            function ($searches) {
+                $stringExceptCode = $searches[0];
+                $stringExceptCode = str_replace('&', '&amp;', $stringExceptCode);
+                return $stringExceptCode;
             }, $string
         );
         return $string;
@@ -224,14 +224,14 @@ class CodeTeaser
      */
     function afterHtmlRegenerating($string)
     {
-        $r = '/(?:^|<\/code>).*?(?:<code(?:(?:\W[^<>]*?>)|>)|$)/us';
+        $regexPattern = '/(?:^|<\/code>).*?(?:<code(?:(?:\W[^<>]*?>)|>)|$)/us';
         $string = preg_replace_callback(
-            $r,
-            function ($a) {
-                $stringExceptCodeSnippets = $a[0];
-                $stringExceptCodeSnippets = $this->cleanArticle($stringExceptCodeSnippets);
-                $stringExceptCodeSnippets = $this->clearBetweenMainTags($stringExceptCodeSnippets);
-                return $stringExceptCodeSnippets;
+            $regexPattern,
+            function ($searches) {
+                $stringExceptCode = $searches[0];
+                $stringExceptCode = $this->cleanArticle($stringExceptCode);
+                $stringExceptCode = $this->clearBetweenMainTags($stringExceptCode);
+                return $stringExceptCode;
             }, $string
         );
         return $string;
