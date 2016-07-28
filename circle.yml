@@ -6,7 +6,7 @@ machine:
 test:
   override:
     - vendor/bin/phpunit
-dependencies:
+  dependencies:
   override:
     - mkdir -p build/logs
     - composer install --dev --no-interaction
