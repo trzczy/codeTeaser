@@ -31,7 +31,7 @@ class CodeTeaser
     {
         $content = $this->replaceBracketsByParenthesis($content);
         $loop = 3;
-        $wordN = 0;
+        $wordLoop = 0;
         $lengths = [0, 0];
         $countedLength = mb_strlen($this->prepareCodeForCharCounting(mb_substr($content, 0, $loop)));
         array_push($lengths, $countedLength);
@@ -68,7 +68,7 @@ class CodeTeaser
                 AND
                 $lengthChange
             ) {
-                $wordN = $loop;
+                $wordLoop = $loop;
             }
             $loop++;
             $countedLength = mb_strlen($this->prepareCodeForCharCounting($oneCharLongerText));// 2
@@ -79,7 +79,7 @@ class CodeTeaser
             function ($searches) {
                 return str_replace($searches[1], htmlspecialchars($searches[1]), $searches[0]);
             },
-            mb_substr($content, 0, $wordN)
+            mb_substr($content, 0, $wordLoop)
         );
         if (!empty($cutText)) {
             $cutText = $this->encodeAmpersandEverywhereButCodeSnippets($cutText);
