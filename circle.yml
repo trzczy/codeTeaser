@@ -3,6 +3,7 @@ machine:
     version: 7.0.4
   environment:
     COVERALLS_REPO_TOKEN: uFuGf8IAEJdcMKHoLYE0SLPSWM0qtAkRA
+        COVERALLS_PARALLEL: true
 test:
   override:
     - vendor/bin/phpunit
@@ -11,3 +12,6 @@ dependencies:
     - mkdir -p build/logs
     - composer install --dev --no-interaction
     - sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini
+notify:
+  webhooks:
+    - url: https://coveralls.io/webhook?repo_token=uFuGf8IAEJdcMKHoLYE0SLPSWM0qtAkRA
