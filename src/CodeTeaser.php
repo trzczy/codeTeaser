@@ -71,10 +71,6 @@ class CodeTeaser
                 $wordN = $n;
             }
             $n++;
-
-            if (!($targetLength - $countedLength)) {
-                break;
-            }
             $countedLength = mb_strlen($this->prepareCodeForCharCounting($oneCharLongerTestedCutText));// 2
         }
         $r = '/<code(?:(?:\W[^<>]*?>)|>)(.*?)(?:<\/code>|$)/su';//!
