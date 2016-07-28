@@ -4,3 +4,4 @@ machine:
 test:
   override:
     - vendor/bin/phpunit
+COVERALLS_REPO_TOKEN: uFuGf8IAEJdcMKHoLYE0SLPSWM0qtAkRA
