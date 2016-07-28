@@ -7,6 +7,7 @@ Get good looking teaser even if the code was trimmed.
 ## Installation
 `composer require master/code-teaser`
 
+
 ## Usage example
 ```php
     require __DIR__ . '/vendor/autoload.php';
