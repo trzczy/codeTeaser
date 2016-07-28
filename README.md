@@ -2,6 +2,7 @@
 Get good looking teaser even if the code was trimmed.
 
 ![Build status](https://img.shields.io/circleci/project/trzczy/codeTeaser.svg?style=flat-square)
+![Build status](https://img.shields.io/codecov/c/github/trzczy/codeTeaser.svg?style=flat-square)
 
 ## Installation
 `composer require master/code-teaser`
