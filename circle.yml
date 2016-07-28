@@ -3,7 +3,7 @@ machine:
     version: 7.0.4
   environment:
     COVERALLS_REPO_TOKEN: uFuGf8IAEJdcMKHoLYE0SLPSWM0qtAkRA
-        COVERALLS_PARALLEL: true
+    COVERALLS_PARALLEL: true
 test:
   override:
     - vendor/bin/phpunit
