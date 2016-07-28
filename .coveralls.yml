@@ -1,1 +1,2 @@
-COVERALLS_REPO_TOKEN=uFuGf8IAEJdcMKHoLYE0SLPSWM0qtAkRA bundle exec rspec spec
+service_name: CIRCLECI
+repo_token: uFuGf8IAEJdcMKHoLYE0SLPSWM0qtAkRA
