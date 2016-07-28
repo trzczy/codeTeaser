@@ -4,5 +4,3 @@ machine:
 test:
   override:
     - vendor/bin/phpunit
-  post:
-    - bash <(curl -s https://codecov.io/bash)
