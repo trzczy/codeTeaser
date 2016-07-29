@@ -5,7 +5,9 @@ php:
   - 5.6
   - 7.0
 
-before_script: 
+install: composer install
+
+before_script:
 - "composer require codeclimate/php-test-reporter --dev"
 - "composer install"
 
