@@ -1,4 +1,6 @@
 <?php
+namespace Mvc\Model\Domain;
+
 class CodeTeaserTest extends \PHPUnit_Framework_TestCase
 {
     private $subjectObject;
@@ -14,7 +16,7 @@ class CodeTeaserTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->subjectObject = new Mvc\Model\Domain\CodeTeaser();
+        $this->subjectObject = new CodeTeaser();
     }
 
     /**
