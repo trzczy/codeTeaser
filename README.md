@@ -2,7 +2,7 @@
 Get good looking teaser even if the code was trimmed.
 
 ![Build status](https://img.shields.io/circleci/project/trzczy/codeTeaser.svg?style=flat-square)
-[![Test Coverage](https://codeclimate.com/github/trzczy/codeTeaser/badges/coverage.svg)](https://codeclimate.com/github/trzczy/codeTeaser/coverage)
+[![Test Coverage](https://codeclimate.com/github/trzczy/codeTeaser/badges/coverage.svg?style=flat-square)](https://codeclimate.com/github/trzczy/codeTeaser/coverage)
 ## Installation
 `composer require master/code-teaser`
 
