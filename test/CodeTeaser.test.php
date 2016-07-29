@@ -1,5 +1,5 @@
 <?php
-namespace Mvc\Model\Domain;
+namespace Trzczy\Model\Domain;
 
 class CodeTeaserTest extends \PHPUnit_Framework_TestCase
 {

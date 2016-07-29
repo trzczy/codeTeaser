@@ -7,7 +7,7 @@
  * @author     trzczy <trzczy@gmail.com>
  */
 
-namespace Mvc\Model\Domain;
+namespace Trzczy\Model\Domain;
 
 /**
  * The class for teasers

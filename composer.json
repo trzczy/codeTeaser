@@ -18,7 +18,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Mvc\\Model\\Domain\\": "src/"
+      "Trzczy\\Model\\Domain\\": "src/"
     }
   }
 }
