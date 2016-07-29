@@ -19,7 +19,7 @@
   "autoload": {
     "psr-4": {
       "Mvc\\Model\\Domain\\": "./src",
-      "Mvc\\Model\\Domain\\": "./test"
+      "Mvc\\Model\\Domain\\Test\\": "./test"
     }
   }
 }
