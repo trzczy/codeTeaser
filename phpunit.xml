@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <phpunit colors="true">
     <testsuites>
-        <testsuite>
+        <testsuite name="unit">
             <directory suffix=".test.php">test</directory>
         </testsuite>
     </testsuites>
