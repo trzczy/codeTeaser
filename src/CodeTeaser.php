@@ -10,10 +10,10 @@
 namespace Trzczy\Model\Domain;
 
 /**
- * The class for teasers
+ * Teaser creator
  *
- * The class is for making a teaser of blog article. Article must consist of paragraphs, blocquote, special code
- * elements and no plain text. The special code elements may not contain encoded text.
+ * The class is for making the teaser of a blog article. Article must consist of paragraphs, blocquote, special code
+ * elements and no bare text. The special code elements must not contain encoded text.
  *
  * @package    CodeTeaser
  * @author     trzczy <trzczy@gmail.com>
@@ -21,7 +21,7 @@ namespace Trzczy\Model\Domain;
 class CodeTeaser
 {
     /**
-     * Finds and returns user by ID or username
+     * Trims down the article
      *
      * @param int $targetLength max teaser length
      * @content string $content An article body to get the teaser of
