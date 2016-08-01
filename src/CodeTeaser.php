@@ -6,7 +6,6 @@
  * @license    https://opensource.org/licenses/MIT  The MIT License (MIT)
  * @author     trzczy <trzczy@gmail.com>
  */
-
 namespace Trzczy\Model\Domain;
 
 /**
@@ -24,10 +23,10 @@ class CodeTeaser
      * Trims down the article
      *
      * @param int $targetLength max teaser length
-     * @content string $content An article body to get the teaser of
+     * @param string $content An article body to get the teaser of
      * @return string Returns trimmed article with the text inside code tags not encoded.
      */
-    function build($targetLength = 50, $content)
+    final public function build($targetLength = 50, $content)
     {
         $content = $this->replaceBracketsByParenthesis($content);
         $loop = 3;
@@ -86,10 +85,8 @@ class CodeTeaser
             $cutText = $this->htmlRegenerate($cutText);
             $cutText = $this->afterHtmlRegenerating($cutText); //????
         }
-
         return htmlspecialchars_decode($cutText);
     }
-
 
     /**
      * Converts a string with brackets code tags to the string with html code tags
@@ -97,7 +94,7 @@ class CodeTeaser
      * @param string $string Text that may contain bracket code tags.
      * @return string Returns converted string
      */
-    function replaceBracketsByParenthesis($string)
+    private function replaceBracketsByParenthesis($string)
     {
         return preg_replace_callback('/\[(\/?code[ ]?[^\]]*)\]/su', function ($matches) {
             return '<' . $matches[1] . '>';
@@ -112,7 +109,7 @@ class CodeTeaser
      * @param string $string Text that may contain some invisible chars and chars between main tags.
      * @return string Returns normalized string
      */
-    function prepareCodeForCharCounting($string)
+    private function prepareCodeForCharCounting($string)
     {
         $regexPattern = '/(?:^|<\/code>).*?(?:<code(?:(?:\W[^<>]*?>)|>)|$)/us';
         $string = preg_replace_callback(
@@ -136,7 +133,7 @@ class CodeTeaser
      * @param string $string Text that may contain some invisible chars that can influence the result of counting chars.
      * @return string Returns clean string
      */
-    function cleanArticle($string)
+    private function cleanArticle($string)
     {
         $string = preg_replace('/\v+/us', '', $string);
         $string = preg_replace('/\h+/us', ' ', $string);
@@ -149,7 +146,7 @@ class CodeTeaser
      * @param string $string Text that may contain some chars between main tags.
      * @return string Returns the string without any chars between main tags.
      */
-    function clearBetweenMainTags($string)
+    private function clearBetweenMainTags($string)
     {
         foreach (['p', 'code', 'blockquote'] as $tag) {
             $string = preg_replace_callback(
@@ -168,7 +165,7 @@ class CodeTeaser
      * @param string $string Text that may contain some chars between main tags.
      * @return string Returns the string without any chars between main tags.
      */
-    function encodeAmpersandEverywhereButCodeSnippets($string)
+    private function encodeAmpersandEverywhereButCodeSnippets($string)
     {
         $regexPattern = '/(?:^|<\/code>).*?(?:<code(?:(?:\W[^<>]*?>)|>)|$)/us';
         $string = preg_replace_callback(
@@ -188,7 +185,7 @@ class CodeTeaser
      * @param string $html Text that may contain some html tags open.
      * @return string Returns the string without open tags and with three dots added to the last word of the text
      */
-    function htmlRegenerate($html)
+    private function htmlRegenerate($html)
     {
         $dom = new \DOMDocument();
         $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8"), LIBXML_HTML_NODEFDTD);
@@ -207,7 +204,7 @@ class CodeTeaser
      * @param object $dom DOMDocument object
      * @return object Returns DOMElement of the last parent element of the given DOM
      */
-    function lastParent($dom)
+    private function lastParent($dom)
     {
         $child = $dom->documentElement;
         while ($child->lastChild) {
@@ -222,7 +219,7 @@ class CodeTeaser
      * @param string $string Text that may contain white spaces between main tags.
      * @return string Returns normalized string
      */
-    function afterHtmlRegenerating($string)
+    private function afterHtmlRegenerating($string)
     {
         $regexPattern = '/(?:^|<\/code>).*?(?:<code(?:(?:\W[^<>]*?>)|>)|$)/us';
         $string = preg_replace_callback(

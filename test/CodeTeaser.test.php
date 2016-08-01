@@ -5,18 +5,14 @@ class CodeTeaserTest extends \PHPUnit_Framework_TestCase
 {
     private $subjectObject;
 
-    public function inputParameters() {
+    public function inputParameters()
+    {
         $data = [];
         include 'data.php';
         include 'data2.php';
         include 'data3.php';
         include 'data4.php';
         return $data;
-    }
-
-    function setUp()
-    {
-        $this->subjectObject = new CodeTeaser();
     }
 
     /**
@@ -27,5 +23,10 @@ class CodeTeaserTest extends \PHPUnit_Framework_TestCase
     {
         $result = $this->subjectObject->build($length, $content);
         $this->assertEquals($expected, $result);
+    }
+
+    protected function setUp()
+    {
+        $this->subjectObject = new CodeTeaser();
     }
 }
