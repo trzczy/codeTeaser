@@ -25,7 +25,7 @@ class CodeTeaserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    protected function setUp()
+    public function setUp()
     {
         $this->subjectObject = new CodeTeaser();
     }
